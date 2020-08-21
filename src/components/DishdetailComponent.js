@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle,  Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Label, Col  } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
 function RenderDish({dish}){
-    console.log(dish);
     return (
-        <Card>
+        <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+            <Card>
             <CardImg width="100%" src={baseUrl+dish.image} alt="dish.name" />
             <CardBody>
                 <CardTitle>{dish.name}</CardTitle>
                 <CardText>{dish.description}</CardText>
             </CardBody>
         </Card>
+        </FadeTransform>
     );
 };
 
@@ -106,19 +112,23 @@ class CommentForm extends Component{
 function RenderComments({comments, postComment, dishId}){
     var options = {  year: 'numeric', month: 'short', day: 'numeric' };
     const commentList = comments.map((comment) =>
+        <Fade in>
         <div key={comment.id}>
             <li>
                 <p>{comment.comment}</p>
                 <p> --{comment.author}, {new Date(comment.date).toLocaleDateString("en-US",options)}</p>
             </li>
         </div>
+        </Fade>
     );
     if(comments!=null){
         return(
             <div>
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
-                {commentList}
+                <Stagger in>
+                    {commentList}
+                </Stagger>
                 </ul>
                 <CommentForm dishId={dishId} postComment={postComment} />            
             </div>
