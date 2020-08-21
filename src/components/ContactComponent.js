@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //             Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
 import { Breadcrumb, BreadcrumbItem,
     Button, Row, Label, Col } from 'reactstrap';
-import { Control, LocalForm, Errors,Form, actions  } from 'react-redux-form';
+import { Control, Errors,Form  } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
