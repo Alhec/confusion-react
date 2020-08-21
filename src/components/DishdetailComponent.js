@@ -36,7 +36,7 @@ class CommentForm extends Component{
     }
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.name, values.message);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
     render(){
         return(
@@ -60,9 +60,9 @@ class CommentForm extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="name" md={12}>Your Name</Label>
+                                <Label htmlFor="author" md={12}>Your Name</Label>
                                 <Col>
-                                    <Control.text model=".name" id="name" name="name"
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -81,9 +81,9 @@ class CommentForm extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={12}>Comment</Label>
+                                <Label htmlFor="comment" md={12}>Comment</Label>
                                 <Col md={12}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                         rows="6"
                                         className="form-control" />
                                 </Col>
@@ -103,7 +103,7 @@ class CommentForm extends Component{
     }
 }
 
-function RenderComments({comments, addComment, dishId}){
+function RenderComments({comments, postComment, dishId}){
     var options = {  year: 'numeric', month: 'short', day: 'numeric' };
     const commentList = comments.map((comment) =>
         <div key={comment.id}>
@@ -120,7 +120,7 @@ function RenderComments({comments, addComment, dishId}){
                 <ul className="list-unstyled">
                 {commentList}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment}/>
+                <CommentForm dishId={dishId} postComment={postComment} />            
             </div>
         )
     }
@@ -168,7 +168,7 @@ const DishDetail = (props) =>{
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className=" col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
+                        <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id}/>
                     </div>
                 </div>
             </div>
