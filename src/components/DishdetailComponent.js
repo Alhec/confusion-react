@@ -113,12 +113,10 @@ function RenderComments({comments, postComment, dishId}){
     var options = {  year: 'numeric', month: 'short', day: 'numeric' };
     const commentList = comments.map((comment) =>
         <Fade in>
-        <div key={comment.id}>
-            <li>
+            <li key={comment.id}>
                 <p>{comment.comment}</p>
                 <p> --{comment.author}, {new Date(comment.date).toLocaleDateString("en-US",options)}</p>
             </li>
-        </div>
         </Fade>
     );
     if(comments!=null){
@@ -130,7 +128,7 @@ function RenderComments({comments, postComment, dishId}){
                     {commentList}
                 </Stagger>
                 </ul>
-                <CommentForm dishId={dishId} postComment={postComment} />            
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
         )
     }
